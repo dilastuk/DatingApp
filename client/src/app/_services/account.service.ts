@@ -15,14 +15,18 @@ export class AccountService {
   
   constructor(private http: HttpClient) { }
 
-  login(model: any){
+  login(model: User){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
-      map((response: any) => {
-        const user = response;
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
+      map(  (response: any) => {
+        var _user: User;
+        _user = response;
+        if (_user) {
+          localStorage.setItem('user', JSON.stringify(_user));
+          this.currentUserSource.next(_user);
+          console.log(JSON.stringify(_user));
+          console.log(_user.userName + " " + _user.token);
+          console.log(_user.userName+ " : eccolo qui");
+        };
       })
     )
   }
